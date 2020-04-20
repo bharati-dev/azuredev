@@ -13,6 +13,7 @@
 				},
 				"secretName": "sourcestoredev01"
 			}
-		}
+		},
+		"description": "Source ADLS connection"
 	}
 }
