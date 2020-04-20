@@ -1,0 +1,32 @@
+{
+	"name": "SurveyResults",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ADLS_Source1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "survey_results_schema.csv",
+				"fileSystem": "devcontainer01"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "Column",
+				"type": "String"
+			},
+			{
+				"name": "QuestionText",
+				"type": "String"
+			}
+		]
+	}
+}
