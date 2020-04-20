@@ -1,0 +1,19 @@
+{
+	"name": "ADLS_Source1",
+	"properties": {
+		"annotations": [],
+		"type": "AzureBlobFS",
+		"typeProperties": {
+			"url": "https://sourcestoredev01.dfs.core.windows.net",
+			"accountKey": {
+				"type": "AzureKeyVaultSecret",
+				"store": {
+					"referenceName": "KeyVaultDev01",
+					"type": "LinkedServiceReference"
+				},
+				"secretName": "sourcestoredev01"
+			}
+		},
+		"description": "Source ADLS connection"
+	}
+}
