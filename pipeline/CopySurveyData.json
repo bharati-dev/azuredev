@@ -1,6 +1,7 @@
 {
 	"name": "CopySurveyData",
 	"properties": {
+		"description": "fdf",
 		"activities": [
 			{
 				"name": "Copy-survey-results-file",
