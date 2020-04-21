@@ -52,6 +52,16 @@
 				]
 			}
 		],
+		"parameters": {
+			"SourceFilePath": {
+				"type": "string",
+				"defaultValue": "/devcontainer01"
+			},
+			"TargetFilePath": {
+				"type": "string",
+				"defaultValue": "/devcontainer02"
+			}
+		},
 		"annotations": []
 	}
 }
