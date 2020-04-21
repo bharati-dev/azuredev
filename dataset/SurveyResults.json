@@ -5,13 +5,27 @@
 			"referenceName": "ADLS_Source1",
 			"type": "LinkedServiceReference"
 		},
+		"parameters": {
+			"SourceFilePath": {
+				"type": "String"
+			},
+			"SourceFileName": {
+				"type": "String"
+			}
+		},
 		"annotations": [],
 		"type": "DelimitedText",
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"fileName": "survey_results_schema.csv",
-				"fileSystem": "devcontainer01"
+				"fileName": {
+					"value": "@dataset().SourceFileName",
+					"type": "Expression"
+				},
+				"fileSystem": {
+					"value": "@dataset().SourceFilePath",
+					"type": "Expression"
+				}
 			},
 			"columnDelimiter": ",",
 			"escapeChar": "\\",
