@@ -6,18 +6,6 @@
 			"type": "string",
 			"metadata": "Data Factory name",
 			"defaultValue": "df-dev01"
-		},
-		"ADLS_Source1_properties_typeProperties_url": {
-			"type": "string",
-			"defaultValue": "https://sourcestoredev01.dfs.core.windows.net"
-		},
-		"ADLS_Target1_properties_typeProperties_url": {
-			"type": "string",
-			"defaultValue": "https:\\\\targetstoredev01.dfs.core.windows.net"
-		},
-		"KeyVaultDev01_properties_typeProperties_baseUrl": {
-			"type": "string",
-			"defaultValue": " https://keydev01.vault.azure.net/"
 		}
 	},
 	"variables": {
@@ -193,9 +181,7 @@
 					}
 				]
 			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/ADLS_Target1')]"
-			]
+			"dependsOn": []
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/SurveyResults')]",
@@ -250,68 +236,6 @@
 						"type": "String"
 					}
 				]
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/ADLS_Source1')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/ADLS_Source1')]",
-			"type": "Microsoft.DataFactory/factories/linkedServices",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"description": "Source ADLS connection",
-				"annotations": [],
-				"type": "AzureBlobFS",
-				"typeProperties": {
-					"url": "[parameters('ADLS_Source1_properties_typeProperties_url')]",
-					"accountKey": {
-						"type": "AzureKeyVaultSecret",
-						"store": {
-							"referenceName": "KeyVaultDev01",
-							"type": "LinkedServiceReference"
-						},
-						"secretName": "sourcestoredev01"
-					}
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/KeyVaultDev01')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/ADLS_Target1')]",
-			"type": "Microsoft.DataFactory/factories/linkedServices",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"type": "AzureBlobFS",
-				"typeProperties": {
-					"url": "[parameters('ADLS_Target1_properties_typeProperties_url')]",
-					"accountKey": {
-						"type": "AzureKeyVaultSecret",
-						"store": {
-							"referenceName": "KeyVaultDev01",
-							"type": "LinkedServiceReference"
-						},
-						"secretName": "targetstoredev01"
-					}
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/KeyVaultDev01')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/KeyVaultDev01')]",
-			"type": "Microsoft.DataFactory/factories/linkedServices",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"type": "AzureKeyVault",
-				"typeProperties": {
-					"baseUrl": "[parameters('KeyVaultDev01_properties_typeProperties_baseUrl')]"
-				}
 			},
 			"dependsOn": []
 		}

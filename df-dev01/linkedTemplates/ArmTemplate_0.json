@@ -93,12 +93,34 @@
 					"referenceName": "ADLS_Target1",
 					"type": "LinkedServiceReference"
 				},
+				"parameters": {
+					"TargetFilePath": {
+						"type": "String"
+					},
+					"TargetFileName": {
+						"type": "String"
+					},
+					"TargetFileDirectory": {
+						"type": "String"
+					}
+				},
 				"annotations": [],
 				"type": "DelimitedText",
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobFSLocation",
-						"fileSystem": "devcontainer02"
+						"fileName": {
+							"value": "@dataset().TargetFileName",
+							"type": "Expression"
+						},
+						"folderPath": {
+							"value": "@dataset().TargetFileDirectory",
+							"type": "Expression"
+						},
+						"fileSystem": {
+							"value": "@dataset().TargetFilePath",
+							"type": "Expression"
+						}
 					},
 					"columnDelimiter": "|",
 					"escapeChar": "\\",
@@ -127,13 +149,34 @@
 					"referenceName": "ADLS_Source1",
 					"type": "LinkedServiceReference"
 				},
+				"parameters": {
+					"SourceFilePath": {
+						"type": "String"
+					},
+					"SourceFileName": {
+						"type": "String"
+					},
+					"SourceFileDirectory": {
+						"type": "string"
+					}
+				},
 				"annotations": [],
 				"type": "DelimitedText",
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobFSLocation",
-						"fileName": "survey_results_schema.csv",
-						"fileSystem": "devcontainer01"
+						"fileName": {
+							"value": "@dataset().SourceFileName",
+							"type": "Expression"
+						},
+						"folderPath": {
+							"value": "@dataset().SourceFileDirectory",
+							"type": "Expression"
+						},
+						"fileSystem": {
+							"value": "@dataset().SourceFilePath",
+							"type": "Expression"
+						}
 					},
 					"columnDelimiter": ",",
 					"escapeChar": "\\",
@@ -201,18 +244,70 @@
 							{
 								"referenceName": "SurveyResults",
 								"type": "DatasetReference",
-								"parameters": {}
+								"parameters": {
+									"SourceFilePath": {
+										"value": "@pipeline().parameters.SourceFilePath",
+										"type": "Expression"
+									},
+									"SourceFileName": {
+										"value": "@pipeline().parameters.SourceFileName",
+										"type": "Expression"
+									},
+									"SourceFileDirectory": {
+										"value": "@pipeline().parameters.SourceFileDirectory",
+										"type": "Expression"
+									}
+								}
 							}
 						],
 						"outputs": [
 							{
 								"referenceName": "SurveyDataTarget",
 								"type": "DatasetReference",
-								"parameters": {}
+								"parameters": {
+									"TargetFilePath": {
+										"value": "@pipeline().parameters.TargetFilePath",
+										"type": "Expression"
+									},
+									"TargetFileName": {
+										"value": "@pipeline().parameters.TargetFileName",
+										"type": "Expression"
+									},
+									"TargetFileDirectory": {
+										"value": "@pipeline().parameters.TargetFileDirectory",
+										"type": "Expression"
+									}
+								}
 							}
 						]
 					}
 				],
+				"parameters": {
+					"SourceFilePath": {
+						"type": "string",
+						"defaultValue": "/devcontainer01"
+					},
+					"TargetFilePath": {
+						"type": "string",
+						"defaultValue": "/devcontainer02"
+					},
+					"SourceFileDirectory": {
+						"type": "string",
+						"defaultValue": "/sourcedir01"
+					},
+					"TargetFileDirectory": {
+						"type": "string",
+						"defaultValue": "/TgtDir01"
+					},
+					"SourceFileName": {
+						"type": "string",
+						"defaultValue": "survey_results_schema.csv"
+					},
+					"TargetFileName": {
+						"type": "string",
+						"defaultValue": "survey_results_Target.csv"
+					}
+				},
 				"annotations": []
 			},
 			"dependsOn": [
