@@ -41,7 +41,21 @@
 				"inputs": [
 					{
 						"referenceName": "SurveyResults",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"SourceFilePath": {
+								"value": "@pipeline().parameters.SourceFilePath",
+								"type": "Expression"
+							},
+							"SourceFileName": {
+								"value": "@pipeline().parameters.SourceFileName",
+								"type": "Expression"
+							},
+							"SourceFileDirectory": {
+								"value": "@pipeline().parameters.SourceFileDirectory",
+								"type": "Expression"
+							}
+						}
 					}
 				],
 				"outputs": [
