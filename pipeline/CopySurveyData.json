@@ -60,6 +60,22 @@
 			"TargetFilePath": {
 				"type": "string",
 				"defaultValue": "/devcontainer02"
+			},
+			"SourceFileDirectory": {
+				"type": "string",
+				"defaultValue": "/sourcedir01"
+			},
+			"TargetFileDirectory": {
+				"type": "string",
+				"defaultValue": "/TgtDir01"
+			},
+			"SourceFileName": {
+				"type": "string",
+				"defaultValue": "survey_results_schema.csv"
+			},
+			"TargetFileName": {
+				"type": "string",
+				"defaultValue": "survey_results_Target.csv"
 			}
 		},
 		"annotations": []
