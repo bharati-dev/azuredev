@@ -11,6 +11,9 @@
 			},
 			"SourceFileName": {
 				"type": "String"
+			},
+			"SourceFileDirectory": {
+				"type": "string"
 			}
 		},
 		"annotations": [],
