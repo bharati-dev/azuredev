@@ -61,7 +61,21 @@
 				"outputs": [
 					{
 						"referenceName": "SurveyDataTarget",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"TargetFilePath": {
+								"value": "@pipeline().parameters.TargetFilePath",
+								"type": "Expression"
+							},
+							"TargetFileName": {
+								"value": "@pipeline().parameters.TargetFileName",
+								"type": "Expression"
+							},
+							"TargetFileDirectory": {
+								"value": "@pipeline().parameters.TargetFileDirectory",
+								"type": "Expression"
+							}
+						}
 					}
 				]
 			}
