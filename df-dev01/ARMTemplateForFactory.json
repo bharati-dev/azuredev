@@ -207,6 +207,7 @@
 				"activities": [
 					{
 						"name": "Copy-survey-results-file",
+						"description": "Copy data from one blob to another",
 						"type": "Copy",
 						"dependsOn": [],
 						"policy": {
