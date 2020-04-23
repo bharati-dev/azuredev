@@ -1,7 +1,7 @@
 {
 	"name": "SurveyResults",
 	"properties": {
-		"description": "Target definition - Survey results",
+		"description": "Source csv file ",
 		"linkedServiceName": {
 			"referenceName": "ADLS_Source1",
 			"type": "LinkedServiceReference"
