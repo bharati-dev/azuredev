@@ -1,6 +1,7 @@
 {
 	"name": "SurveyDataTarget",
 	"properties": {
+		"description": "Survey data set",
 		"linkedServiceName": {
 			"referenceName": "ADLS_Target1",
 			"type": "LinkedServiceReference"
