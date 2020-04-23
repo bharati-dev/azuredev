@@ -25,10 +25,130 @@
 	},
 	"resources": [
 		{
+			"name": "[concat(parameters('factoryName'), '/CopySurveyData_copy1')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"description": "fdf",
+				"activities": [
+					{
+						"name": "Copy-survey-results-file",
+						"description": "Copy data from one blob to another",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "8.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "DelimitedTextSource",
+								"storeSettings": {
+									"type": "AzureBlobFSReadSettings",
+									"recursive": true
+								},
+								"formatSettings": {
+									"type": "DelimitedTextReadSettings"
+								}
+							},
+							"sink": {
+								"type": "DelimitedTextSink",
+								"storeSettings": {
+									"type": "AzureBlobFSWriteSettings"
+								},
+								"formatSettings": {
+									"type": "DelimitedTextWriteSettings",
+									"quoteAllText": true,
+									"fileExtension": ".txt"
+								}
+							},
+							"enableStaging": false
+						},
+						"inputs": [
+							{
+								"referenceName": "SurveyResults",
+								"type": "DatasetReference",
+								"parameters": {
+									"SourceFilePath": {
+										"value": "@pipeline().parameters.SourceFilePath",
+										"type": "Expression"
+									},
+									"SourceFileName": {
+										"value": "@pipeline().parameters.SourceFileName",
+										"type": "Expression"
+									},
+									"SourceFileDirectory": {
+										"value": "@pipeline().parameters.SourceFileDirectory",
+										"type": "Expression"
+									}
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "SurveyDataTarget",
+								"type": "DatasetReference",
+								"parameters": {
+									"TargetFilePath": {
+										"value": "@pipeline().parameters.TargetFilePath",
+										"type": "Expression"
+									},
+									"TargetFileName": {
+										"value": "@pipeline().parameters.TargetFileName",
+										"type": "Expression"
+									},
+									"TargetFileDirectory": {
+										"value": "@pipeline().parameters.TargetFileDirectory",
+										"type": "Expression"
+									}
+								}
+							}
+						]
+					}
+				],
+				"parameters": {
+					"SourceFilePath": {
+						"type": "string",
+						"defaultValue": "/devcontainer01"
+					},
+					"TargetFilePath": {
+						"type": "string",
+						"defaultValue": "/devcontainer02"
+					},
+					"SourceFileDirectory": {
+						"type": "string",
+						"defaultValue": "/sourcedir01"
+					},
+					"TargetFileDirectory": {
+						"type": "string",
+						"defaultValue": "/TgtDir01"
+					},
+					"SourceFileName": {
+						"type": "string",
+						"defaultValue": "survey_results_schema.csv"
+					},
+					"TargetFileName": {
+						"type": "string",
+						"defaultValue": "survey_results_Target.csv"
+					}
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/SurveyResults')]",
+				"[concat(variables('factoryId'), '/datasets/SurveyDataTarget')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/SurveyDataTarget')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
+				"description": "Survey data set",
 				"linkedServiceName": {
 					"referenceName": "ADLS_Target1",
 					"type": "LinkedServiceReference"
@@ -197,125 +317,6 @@
 				}
 			},
 			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/CopySurveyData_copy1')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"description": "fdf",
-				"activities": [
-					{
-						"name": "Copy-survey-results-file",
-						"description": "Copy data from one blob to another",
-						"type": "Copy",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "8.00:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"source": {
-								"type": "DelimitedTextSource",
-								"storeSettings": {
-									"type": "AzureBlobFSReadSettings",
-									"recursive": true
-								},
-								"formatSettings": {
-									"type": "DelimitedTextReadSettings"
-								}
-							},
-							"sink": {
-								"type": "DelimitedTextSink",
-								"storeSettings": {
-									"type": "AzureBlobFSWriteSettings"
-								},
-								"formatSettings": {
-									"type": "DelimitedTextWriteSettings",
-									"quoteAllText": true,
-									"fileExtension": ".txt"
-								}
-							},
-							"enableStaging": false
-						},
-						"inputs": [
-							{
-								"referenceName": "SurveyResults",
-								"type": "DatasetReference",
-								"parameters": {
-									"SourceFilePath": {
-										"value": "@pipeline().parameters.SourceFilePath",
-										"type": "Expression"
-									},
-									"SourceFileName": {
-										"value": "@pipeline().parameters.SourceFileName",
-										"type": "Expression"
-									},
-									"SourceFileDirectory": {
-										"value": "@pipeline().parameters.SourceFileDirectory",
-										"type": "Expression"
-									}
-								}
-							}
-						],
-						"outputs": [
-							{
-								"referenceName": "SurveyDataTarget",
-								"type": "DatasetReference",
-								"parameters": {
-									"TargetFilePath": {
-										"value": "@pipeline().parameters.TargetFilePath",
-										"type": "Expression"
-									},
-									"TargetFileName": {
-										"value": "@pipeline().parameters.TargetFileName",
-										"type": "Expression"
-									},
-									"TargetFileDirectory": {
-										"value": "@pipeline().parameters.TargetFileDirectory",
-										"type": "Expression"
-									}
-								}
-							}
-						]
-					}
-				],
-				"parameters": {
-					"SourceFilePath": {
-						"type": "string",
-						"defaultValue": "/devcontainer01"
-					},
-					"TargetFilePath": {
-						"type": "string",
-						"defaultValue": "/devcontainer02"
-					},
-					"SourceFileDirectory": {
-						"type": "string",
-						"defaultValue": "/sourcedir01"
-					},
-					"TargetFileDirectory": {
-						"type": "string",
-						"defaultValue": "/TgtDir01"
-					},
-					"SourceFileName": {
-						"type": "string",
-						"defaultValue": "survey_results_schema.csv"
-					},
-					"TargetFileName": {
-						"type": "string",
-						"defaultValue": "survey_results_Target.csv"
-					}
-				},
-				"annotations": []
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/SurveyResults')]",
-				"[concat(variables('factoryId'), '/datasets/SurveyDataTarget')]"
-			]
 		}
 	]
 }
