@@ -7,7 +7,7 @@
 				"type": "ExecuteDataFlow",
 				"dependsOn": [
 					{
-						"activity": "Set variable1",
+						"activity": "SetColumnStructure",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -83,7 +83,7 @@
 				}
 			},
 			{
-				"name": "Set variable1",
+				"name": "SetColumnStructure",
 				"type": "SetVariable",
 				"dependsOn": [
 					{
@@ -92,7 +92,15 @@
 							"Succeeded"
 						]
 					}
-				]
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "ColumnStructure",
+					"value": {
+						"value": "@activity('EmployeeMetadata').output.structure",
+						"type": "Expression"
+					}
+				}
 			}
 		],
 		"variables": {
