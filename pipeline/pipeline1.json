@@ -97,7 +97,7 @@
 				"typeProperties": {
 					"variableName": "ColumnStructure",
 					"value": {
-						"value": "@activity('EmployeeMetadata').output.structure[1]",
+						"value": "@activity('EmployeeMetadata').output.structure.value",
 						"type": "Expression"
 					}
 				}
