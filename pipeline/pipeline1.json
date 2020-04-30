@@ -95,9 +95,9 @@
 				],
 				"userProperties": [],
 				"typeProperties": {
-					"variableName": "ColumnStructure",
+					"variableName": "ColumnNames",
 					"value": {
-						"value": "@activity('EmployeeMetadata').output.structure.value",
+						"value": "@variables('ColumnStructure').value",
 						"type": "Expression"
 					}
 				}
