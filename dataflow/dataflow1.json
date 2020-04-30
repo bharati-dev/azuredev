@@ -10,15 +10,25 @@
 						"type": "DatasetReference"
 					},
 					"name": "EmployeeFile"
+				},
+				{
+					"dataset": {
+						"referenceName": "LookUp_Table",
+						"type": "DatasetReference"
+					},
+					"name": "ColNameRef"
 				}
 			],
 			"sinks": [],
 			"transformations": [
 				{
-					"name": "SurrogateKey1"
+					"name": "EmpKey"
+				},
+				{
+					"name": "LookupColName"
 				}
 			],
-			"script": "source(output(\n\t\t{DEPT ID } as string,\n\t\t{EMP NAME} as string,\n\t\tLEVEL as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false) ~> EmployeeFile\nEmployeeFile keyGenerate(output({Emp SID} as long),\n\tstartAt: 1L) ~> SurrogateKey1"
+			"script": "source(output(\n\t\t{DEPT ID } as string,\n\t\t{EMP NAME} as string,\n\t\tLEVEL as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false) ~> EmployeeFile\nsource(output(\n\t\tsource_column as string,\n\t\ttarget_column as string,\n\t\tkey as integer\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tformat: 'table') ~> ColNameRef\nEmployeeFile keyGenerate(output({Emp SID} as long),\n\tstartAt: 1L) ~> EmpKey\nEmpKey, ColNameRef lookup({DEPT ID } == source_column,\n\tmultiple: false,\n\tpickup: 'first',\n\tasc(source_column, true),\n\tbroadcast: 'auto')~> LookupColName"
 		}
 	}
 }
