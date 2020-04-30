@@ -97,7 +97,7 @@
 				"typeProperties": {
 					"variableName": "ColumnNames",
 					"value": {
-						"value": "@variables('ColumnStructure').Name",
+						"value": "@variables('ColumnStructure')",
 						"type": "Expression"
 					}
 				}
