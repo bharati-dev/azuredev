@@ -15,11 +15,6 @@
 			{
 				"name": "target_column",
 				"type": "varchar"
-			},
-			{
-				"name": "key",
-				"type": "int",
-				"precision": 10
 			}
 		],
 		"typeProperties": {
