@@ -1,0 +1,30 @@
+{
+	"name": "LookUp_Table",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureSqlDatabase",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "source_column",
+				"type": "varchar"
+			},
+			{
+				"name": "target_column",
+				"type": "varchar"
+			},
+			{
+				"name": "key",
+				"type": "int",
+				"precision": 10
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "lookup_source"
+		}
+	}
+}
