@@ -106,6 +106,9 @@
 		"variables": {
 			"ColumnStructure": {
 				"type": "Array"
+			},
+			"ColumnNames": {
+				"type": "Array"
 			}
 		},
 		"annotations": []
