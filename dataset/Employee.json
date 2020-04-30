@@ -1,0 +1,37 @@
+{
+	"name": "Employee",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ADLS_Source1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "Employee.csv",
+				"folderPath": "sourcedir01",
+				"fileSystem": "devcontainer01"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "DEPT ID ",
+				"type": "String"
+			},
+			{
+				"name": "EMP NAME",
+				"type": "String"
+			},
+			{
+				"name": "LEVEL",
+				"type": "String"
+			}
+		]
+	}
+}
